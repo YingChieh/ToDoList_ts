@@ -1,11 +1,13 @@
-export function readTextFile(file: any, callback: any) {
-    var rawFile:any = new XMLHttpRequest();
-    rawFile.overrideMimeType("application/json");
-    rawFile.open("GET", file, true);
-    rawFile.onreadystatechange = function () {
-        if (rawFile.readyState === 4 && rawFile.status == "200") {
-            callback(rawFile.responseText);
+export class Read{
+    public readTextFile(file: any, callback: any) {
+        let rawFile:any = new XMLHttpRequest();
+        rawFile.overrideMimeType("application/json");
+        rawFile.open("GET", file, true);
+        rawFile.onreadystatechange = function () {
+            if (rawFile.readyState === 4 && rawFile.status == "200") {
+                callback(rawFile.responseText);
+            }
         }
+        rawFile.send(null);
     }
-    rawFile.send(null);
 }

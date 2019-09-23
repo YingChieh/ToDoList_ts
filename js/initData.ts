@@ -1,36 +1,41 @@
-import { readTextFile } from "./readTextFile";
-import { checked } from "./checked";
-import { addBtn } from "./addBtn";
-import { newElement } from "./create";
-import { delet } from "./delet";
+import { Read } from "./readTextFile";
+import { Checked_symbol } from "./checked";
+import { Init_DelButton } from "./addBtn";
+import { NewElement } from "./create";
+import { Close } from "./delet";
 
 window.onload = function () {
+    const btn = new Init_DelButton();
+    const checkSymbol = new Checked_symbol();
+    const element = new NewElement();
+    const close = new Close();
+    const readFile = new Read();
 
-   readTextFile("../data.json", function (text:string) {
-        var json = JSON.parse(text);
+    readFile.readTextFile("../data.json", function (text:string) {
+        let json = JSON.parse(text);
         for (let i = 0; i < json.length; i++) {
-            var li = document.createElement("li");
+            let li = document.createElement("li");
             if (json[i].check == 1) {
                 li.className = "element checked";
             } else {
                 li.className = "element";
             }
-            var t = document.createTextNode(json[i].info);
+            let t = document.createTextNode(json[i].info);
             li.appendChild(t);
             document.getElementById("myUL").appendChild(li);
         }
 
-        checked();
-        addBtn();
+        checkSymbol.checked();
+        btn.add();
         document.getElementById("addbtn").onclick = function () {
-            newElement();
+            element.create();
         };
 
-        var x = document.getElementById("myUL");
+        let x = document.getElementById("myUL");
         x.addEventListener('click', function (ev) {
         let target = (<HTMLTextAreaElement>ev.target);
             if (target.tagName === 'SPAN' && target.className === 'close') {
-                delet(target);
+                close.delet(target);
             }
         }, false);
     });
